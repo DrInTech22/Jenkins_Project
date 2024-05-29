@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent none
+    agent any
     stages {
         stage('test') {
             steps {
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying the application... \n \n \n"
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     sh 'docker build -t maestrops/demo-app:1.0 .'
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     sh 'docker push maestrops/demo-app:1.0' 
