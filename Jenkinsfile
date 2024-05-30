@@ -28,7 +28,7 @@ pipeline {
                     echo "Deploying the application... \n \n \n"
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     sh 'docker build -t maestrops/demo-app:1.0 .'
-                    sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
                     sh 'docker push maestrops/demo-app:1.0' 
                     }
                 }
